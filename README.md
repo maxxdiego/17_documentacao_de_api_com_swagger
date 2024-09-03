@@ -1,4 +1,5 @@
 # Exemplo de documentação de API
+![NPM](https://img.shields.io/npm/l/react)
 
 # API The Games
 Esta API é utilizada para gerenciar um catálogo de jogos, permitindo operações de CRUD (criar, ler, atualizar e deletar) sobre jogos.
@@ -10,7 +11,7 @@ Esse endpoint é responsável por retornar a listagem de todos os jogos cadastra
 #### Parâmetros
 Nenhum
 
-#### Respostas
+#### Respostas:
 ##### OK! 200
 Caso essa resposta aconteça, você vai receber a listagem de todos os jogos.
 
@@ -84,7 +85,7 @@ Exemplo de requisição:
 }
 ```
 
-#### Respostas
+#### Respostas:
 ##### Criado! 201
 Caso essa resposta aconteça, o novo jogo foi criado com sucesso.
 
@@ -108,7 +109,7 @@ Esse endpoint é responsável por deletar um jogo específico pelo seu ID.
 #### Parâmetros
 id: ID do jogo a ser deletado.
 
-#### Respostas
+#### Respostas:
 ##### Sem Conteúdo! 204
 Caso essa resposta aconteça, o jogo foi deletado com sucesso e não há conteúdo para retornar ao cliente.
 
@@ -163,7 +164,7 @@ Exemplo de requisição:
 }
 ```
 
-#### Respostas
+#### Respostas:
 ##### OK! 200
 Caso essa resposta aconteça, as informações do jogo foram atualizadas com sucesso.
 
@@ -214,7 +215,7 @@ Esse endpoint é responsável por retornar as informações de um jogo específi
 #### Parâmetros
 id: ID do jogo a ser consultado.
 
-#### Respostas
+#### Respostas:
 ##### OK! 200
 Caso essa resposta aconteça, você vai receber as informações do jogo solicitado.
 
