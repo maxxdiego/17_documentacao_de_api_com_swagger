@@ -4,7 +4,7 @@
 Esta API é utilizada para gerenciar um catálogo de jogos, permitindo operações de CRUD (criar, ler, atualizar e deletar) sobre jogos.
 
 ## Endpoints
-### GET /games
+### - GET /games
 Esse endpoint é responsável por retornar a listagem de todos os jogos cadastrados no banco de dados.
 
 #### Parâmetros
@@ -58,13 +58,13 @@ Exemplo de resposta:
 }
 ```
 
-### POST /game
+### - POST /game
 Esse endpoint é responsável por cadastrar um novo jogo no banco de dados.
 
 #### Parâmetros
-title: Título do jogo.
-year: Ano de lançamento do jogo.
-price: Preço do jogo.
+title: Título do jogo.<br>
+year: Ano de lançamento do jogo.<br>
+price: Preço do jogo.<br>
 descriptions: Descrições adicionais sobre o jogo (opcional).
 
 Exemplo de requisição:
@@ -102,7 +102,7 @@ Exemplo de resposta:
 ```
 
 
-### DELETE /game/
+### - DELETE /game/
 Esse endpoint é responsável por deletar um jogo específico pelo seu ID.
 
 #### Parâmetros
@@ -136,15 +136,16 @@ Exemplo de resposta:
 }
 ```
 
-### PUT /game/
+### - PUT /game/
 Esse endpoint é responsável por atualizar as informações de um jogo específico pelo seu ID.
 
 #### Parâmetros
-id: ID do jogo a ser atualizado.
-title: Título do jogo (opcional).
-year: Ano de lançamento do jogo (opcional).
-price: Preço do jogo (opcional).
-descriptions: Descrições adicionais sobre o jogo (opcional).
+id: ID do jogo a ser atualizado.<br>
+title: Título do jogo (opcional).<br>
+year: Ano de lançamento do jogo (opcional).<br>
+price: Preço do jogo (opcional).<br>
+descriptions: Descrições adicionais sobre o jogo (opcional).<br>
+
 Exemplo de requisição:
 
 ```
@@ -207,7 +208,7 @@ Exemplo de resposta:
 }
 ```
 
-### GET /game/
+### - GET /game/
 Esse endpoint é responsável por retornar as informações de um jogo específico pelo seu ID.
 
 #### Parâmetros
