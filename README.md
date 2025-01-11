@@ -100,7 +100,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 ```
 
 ## Passo 3: Documentar as rotas da API
-Agora, é hora de adicionar documentação nas suas rotas usando comentários no formato Swagger. O swagger-jsdoc lê esses comentários e gera a documentação automaticamente.
+Agora, é hora de criar a documentação das rotas da API, para isso criaremos um arquivo YAML no diretório "./docs/swaggerDocs.yaml" onde conterá toda a documentação.
 
 Aqui está um exemplo de como documentar uma rota:
 
@@ -142,6 +142,14 @@ paths:
         500:
           description: Erro interno do servidor
 
+```
+
+### Passo 4: Acessar a documentação
+
+Por fim, basta acessar a documentação da API no seu navegador pelo endereço:
+
+```bash
+http://localhost:4000/api-docs
 ```
 
 <hr>
