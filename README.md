@@ -1,272 +1,150 @@
-# Exemplo de documentação de API
+# Documentação de API com Swagger
 ![NPM](https://img.shields.io/npm/l/react)
 
-# API The Games
-Esta API é utilizada para gerenciar um catálogo de jogos, permitindo operações de CRUD (criar, ler, atualizar e deletar) sobre jogos.
+## Introdução:
 
-## Endpoints
-### - GET /games
-Esse endpoint é responsável por retornar a listagem de todos os jogos cadastrados no banco de dados.
+O Swagger é um conjunto de ferramentas amplamente utilizado para criar, descrever, documentar e consumir APIs RESTful. Ele permite que desenvolvedores gerem documentações interativas e padronizadas de suas APIs, facilitando a comunicação entre equipes e usuários da API. A documentação gerada pelo Swagger inclui detalhes sobre rotas, métodos HTTP, parâmetros de entrada, respostas e exemplos de uso, tudo de maneira visual e acessível através de uma interface chamada Swagger UI.
 
-#### Parâmetros:
-Nenhum
+### Principais vantagens:
 
-#### Respostas:
-##### OK! 200
-Caso essa resposta aconteça, você vai receber a listagem de todos os jogos.
+- Automação da documentação: Gera automaticamente a documentação da API a partir do código, mantendo-a sempre atualizada.
+- Testes interativos: A interface Swagger UI permite que os usuários testem as rotas diretamente no navegador.
+- Padrão OpenAPI: Segue o padrão OpenAPI (anteriormente conhecido como Swagger Specification), garantindo compatibilidade e entendimento universal da API.
 
-Exemplo de resposta:
+Swagger simplifica tanto o desenvolvimento quanto o consumo de APIs, tornando a colaboração mais eficiente e transparente.
 
+## 1. Instalar as dependências necessárias:
+No seu projeto Node.js, primeiro, instale as dependências para o Swagger, que são necessárias para gerar e exibir a documentação da API.
+
+Execute o seguinte comando no terminal para instalar as bibliotecas necessárias:
+
+```bash
+npm install swagger-jsdoc swagger-ui-express
 ```
-{
-    "games": [
-        {
-            "title": "Call of Duty MW",
-            "year": 2019,
-            "price": 60,
-            "descriptions": [
-                {
-                    "genre": "Action",
-                    "platform": "PC",
-                    "rating": "M"
-                }
-            ]
+
+### Explicação das dependências:
+- swagger-jsdoc: Gera a documentação no formato Swagger a partir de comentários no código.
+- swagger-ui-express: Fornece uma interface gráfica para acessar e interagir com a documentação da API gerada pelo Swagger.
+
+## 2. Configurar a API com Swagger
+No arquivo principal do seu projeto (geralmente app.js ou index.js), você precisará configurar o Swagger e integrá-lo à sua aplicação Express.
+
+Aqui está um exemplo básico de configuração:
+
+### 1. Importe os módulos necessários:
+
+```bash
+// "./index.js":
+
+import swaggerUi from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
+```
+
+### 2. Defina as opções para o Swagger:
+Você precisará configurar as opções para a geração da documentação. Defina detalhes como o título da API, a versão e o caminho para os arquivos onde as rotas serão documentadas.
+
+```bash
+// "./config/swagger-config.js":
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0", // Versão do Swagger
+    info: {
+      title: "The Games API",
+      description: "API para catálogo de jogos",
+      version: "1.0.0",
+      contact: {
+        name: "Diego",
+      },
+      servers: [{ url: "http://localhost:4000" }],
+    },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // ou outro formato dependendo do token usado
         },
-        {
-            "title": "Sea of Thieves",
-            "year": 2018,
-            "price": 40,
-            "descriptions": [
-                {
-                    "genre": "Adventure",
-                    "platform": "Xbox",
-                    "rating": "T"
-                }
-            ]
-        }
-    ]
-}
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ["./routes/*.js", "./docs/swaggerDocs.yaml"], // Caminho para os arquivos onde você documenta as rotas
+};
+
+export default swaggerOptions;
 ```
 
-##### Erro Interno do Servidor! 500
-Caso essa resposta aconteça, significa que ocorreu um erro interno no servidor. Motivos podem incluir falhas na comunicação com o banco de dados.
+### 3. Gere a documentação Swagger a partir das opções:
 
-Exemplo de resposta:
+```bash
+// "./index.js":
 
-```
-{
-    "err": "Erro interno do servidor!"
-}
-```
+import swaggerOptions from "./config/swagger-config.js";
 
-### - POST /game
-Esse endpoint é responsável por cadastrar um novo jogo no banco de dados.
-
-#### Parâmetros:
-title: Título do jogo.<br>
-year: Ano de lançamento do jogo.<br>
-price: Preço do jogo.<br>
-descriptions: Descrições adicionais sobre o jogo (opcional).
-
-Exemplo de requisição:
-
-```
-{
-    "title": "Minecraft",
-    "year": 2012,
-    "price": 20,
-    "descriptions": [
-        {
-            "genre": "Sandbox",
-            "platform": "PC",
-            "rating": "E"
-        }
-    ]
-}
-```
-
-#### Respostas:
-##### Criado! 201
-Caso essa resposta aconteça, o novo jogo foi criado com sucesso.
-
-Exemplo de resposta: Nenhum conteúdo retornado.
-
-##### Erro Interno do Servidor! 500
-Caso essa resposta aconteça, significa que ocorreu um erro interno no servidor.
-
-Exemplo de resposta:
-
-```
-{
-    "err": "Erro interno do servidor!"
-}
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 ```
 
 
-### - DELETE /game/
-Esse endpoint é responsável por deletar um jogo específico pelo seu ID.
-
-#### Parâmetros:
-id: ID do jogo a ser deletado.
-
-#### Respostas:
-##### Sem Conteúdo! 204
-Caso essa resposta aconteça, o jogo foi deletado com sucesso e não há conteúdo para retornar ao cliente.
-
-Exemplo de resposta: Nenhum conteúdo retornado.
-
-##### Requisição Inválida! 400
-Caso essa resposta aconteça, significa que o ID fornecido é inválido.
-
-Exemplo de resposta:
-
-```
-{
-    "err": "ID inválido!"
-}
+### 4. Configure a rota para acessar a documentação via Swagger UI:
+```bash
+// "./index.js":
+// Rota para a documentação Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 ```
 
-##### Erro Interno do Servidor! 500
-Caso essa resposta aconteça, significa que ocorreu um erro interno no servidor.
+## Passo 3: Documentar as rotas da API
+Agora, é hora de adicionar documentação nas suas rotas usando comentários no formato Swagger. O swagger-jsdoc lê esses comentários e gera a documentação automaticamente.
 
-Exemplo de resposta:
+Aqui está um exemplo de como documentar uma rota:
 
-```
-{
-    "err": "Erro interno do servidor!"
-}
-```
+```bash
+// "./docs/swaggerDocs.yaml":
 
-### - PUT /game/
-Esse endpoint é responsável por atualizar as informações de um jogo específico pelo seu ID.
-
-#### Parâmetros:
-id: ID do jogo a ser atualizado.<br>
-title: Título do jogo (opcional).<br>
-year: Ano de lançamento do jogo (opcional).<br>
-price: Preço do jogo (opcional).<br>
-descriptions: Descrições adicionais sobre o jogo (opcional).<br>
-
-Exemplo de requisição:
-
-```
-{
-    "title": "Minecraft Updated",
-    "year": 2013,
-    "price": 25,
-    "descriptions": [
-        {
-            "genre": "Sandbox",
-            "platform": "PC",
-            "rating": "E"
-        }
-    ]
-}
-```
-
-#### Respostas:
-##### OK! 200
-Caso essa resposta aconteça, as informações do jogo foram atualizadas com sucesso.
-
-Exemplo de resposta:
-
-```
-{
-    "game": {
-        "title": "Minecraft Updated",
-        "year": 2013,
-        "price": 25,
-        "descriptions": [
-            {
-                "genre": "Sandbox",
-                "platform": "PC",
-                "rating": "E"
-            }
-        ]
-    }
-}
-```
-
-##### Requisição Inválida! 400
-Caso essa resposta aconteça, significa que o ID fornecido é inválido ou a requisição contém dados malformados.
-
-Exemplo de resposta:
+paths:
+  /games:
+    get:
+      summary: Retorna a lista de todos os jogos cadastrados
+      tags: [Games]
+      security:
+        - bearerAuth: [] # Utilizando autenticação JWT
+      responses:
+        200:
+          description: Lista de jogos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "6782b9b16d6ea34ace5bd199"
+                    title:
+                      type: string
+                      example: "CS-GO"
+                    platform:
+                      type: string
+                      example: "PC (Windows)"
+                    year:
+                      type: integer
+                      example: 2012
+                    price:
+                      type: integer
+                      example: 0
+        500:
+          description: Erro interno do servidor
 
 ```
-{
-    "err": "ID inválido ou dados malformados!"
-}
-```
 
-##### Erro Interno do Servidor! 500
-Caso essa resposta aconteça, significa que ocorreu um erro interno no servidor.
+<hr>
 
-Exemplo de resposta:
+# Autor
 
-```
-{
-    "err": "Erro interno do servidor!"
-}
-```
-
-### - GET /game/
-Esse endpoint é responsável por retornar as informações de um jogo específico pelo seu ID.
-
-#### Parâmetros:
-id: ID do jogo a ser consultado.
-
-#### Respostas:
-##### OK! 200
-Caso essa resposta aconteça, você vai receber as informações do jogo solicitado.
-
-Exemplo de resposta:
-
-```
-{
-    "game": {
-        "title": "Minecraft",
-        "year": 2012,
-        "price": 20,
-        "descriptions": [
-            {
-                "genre": "Sandbox",
-                "platform": "PC",
-                "rating": "E"
-            }
-        ]
-    }
-}
-```
-
-##### Não Encontrado! 404
-Caso essa resposta aconteça, significa que o jogo com o ID fornecido não foi encontrado.
-
-Exemplo de resposta:
-
-```
-{
-    "err": "Jogo não encontrado!"
-}
-```
-
-##### Requisição Inválida! 400
-Caso essa resposta aconteça, significa que o ID fornecido é inválido.
-
-Exemplo de resposta:
-
-```
-{
-    "err": "ID inválido!"
-}
-```
-
-##### Erro Interno do Servidor! 500
-Caso essa resposta aconteça, significa que ocorreu um erro interno no servidor.
-
-Exemplo de resposta:
-
-```
-{
-    "err": "Erro interno do servidor!"
-}
-```
+Prof. Diego Max da Silva<br>
+https://lattes.cnpq.br/4370663836049458
