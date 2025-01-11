@@ -43,7 +43,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 ```
 
 ### 2. Defina as opções para o Swagger:
-Você precisará configurar as opções para a geração da documentação. Defina detalhes como o título da API, a versão e o caminho para os arquivos onde as rotas serão documentadas.
+Você precisará configurar as opções para a geração da documentação. Defina detalhes como o título da API, a versão e o caminho para os arquivos onde as rotas serão documentadas. Para isso criaremos um arquivo chamado "swagger-config.js" em "./config".
 
 ```bash
 // "./config/swagger-config.js":
