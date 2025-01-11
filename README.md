@@ -13,6 +13,8 @@ O Swagger é um conjunto de ferramentas amplamente utilizado para criar, descrev
 
 Swagger simplifica tanto o desenvolvimento quanto o consumo de APIs, tornando a colaboração mais eficiente e transparente.
 
+# Como utilizar:
+
 ## 1. Instalar as dependências necessárias:
 No seu projeto Node.js, primeiro, instale as dependências para o Swagger, que são necessárias para gerar e exibir a documentação da API.
 
